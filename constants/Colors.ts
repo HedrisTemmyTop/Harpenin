@@ -10,6 +10,7 @@ export const Colors = {
   primary: {
     button: "#EE9D24",
     line: "#D8D8D8",
+    error: "#EF3535",
 
     text: "#7E7E8E",
     border: "#F8F8F8",

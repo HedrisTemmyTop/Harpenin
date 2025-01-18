@@ -1,8 +1,7 @@
-import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
-import { useAuth } from "@/context/AuthContext";
 import RegisterForm from "@/components/RegisterForm";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "expo-router";
+import React from "react";
 
 export default function RegisterScreen() {
   const { login } = useAuth();
@@ -15,8 +14,3 @@ export default function RegisterScreen() {
 
   return <RegisterForm />;
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  title: { fontSize: 24, marginBottom: 20 },
-});

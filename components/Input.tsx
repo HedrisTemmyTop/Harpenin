@@ -1,17 +1,25 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Colors } from "@/constants/Colors";
 import TextFont from "./TextFont";
 
 interface PropTypes {
   value: string;
   onChange: (value: string) => void;
-  placeholder: string;
+  placeholder: string | ReactNode;
   label?: string;
   config?: any;
+  error?: string;
 }
 
-const Input = ({ value, onChange, placeholder, label, config }: PropTypes) => {
+const Input = ({
+  error,
+  value,
+  onChange,
+  placeholder,
+  label,
+  config,
+}: PropTypes) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -36,12 +44,15 @@ const Input = ({ value, onChange, placeholder, label, config }: PropTypes) => {
             styles.input,
             isFocused && styles.foused,
             value && styles.filled,
+            error && styles.inputError,
           ]}
           value={value}
           onChangeText={onChange}
           onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           {...config}
         />
+        <Text style={styles.error}> {error}</Text>
       </View>
     </View>
   );
@@ -73,7 +84,7 @@ const styles = StyleSheet.create({
   },
   foused: {
     borderColor: Colors.tertiary.border,
-    // backgroundColor: Colors.primary.border,
+    backgroundColor: Colors.primary.border,
   },
   label: {
     fontSize: 13,
@@ -85,5 +96,12 @@ const styles = StyleSheet.create({
   },
   filled: {
     borderColor: "#000",
+  },
+  error: {
+    color: Colors.primary.error,
+    marginTop: 5,
+  },
+  inputError: {
+    borderColor: Colors.primary.error,
   },
 });
