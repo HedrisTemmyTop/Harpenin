@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     maxHeight: 50,
-    paddingHorizontal: 10,
+
+    // paddingHorizontal: 10,
     gap: 10,
   },
   imgLogo: {

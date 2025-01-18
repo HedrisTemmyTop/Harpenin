@@ -1,6 +1,7 @@
 import React from "react";
 import { Slot, Redirect } from "expo-router";
 import { AuthProvider, useAuth } from "./../context/AuthContext";
+import { StatusBar } from "expo-status-bar";
 
 export default function RootLayout() {
   return (
@@ -8,6 +9,7 @@ export default function RootLayout() {
       <Slot />
       {/* <AuthLoader>
       </AuthLoader> */}
+      <StatusBar style={"dark"} />
     </AuthProvider>
   );
 }

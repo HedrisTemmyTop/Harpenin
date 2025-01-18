@@ -72,14 +72,12 @@ const Welcome = () => {
           We'll help you find events in your town. Online or offline, based on
           your interests.
         </TextFont>
-        <ReusableButton
-          textStyle={styles.buttonTextContainer}
-          onPress={handlePress}
-          style={styles.button}
-        >
-          <TextFont style={styles.buttonText} font="NunitoSans_700Bold">
-            Get started 💛
-          </TextFont>
+        <ReusableButton onPress={handlePress} style={styles.button}>
+          <Text style={styles.buttonTextContainer}>
+            <TextFont style={styles.buttonText} font="NunitoSans_700Bold">
+              Get started 💛
+            </TextFont>
+          </Text>
         </ReusableButton>
         <TextFont style={styles.loginText} font="NunitoSans_600SemiBold">
           I already have an account

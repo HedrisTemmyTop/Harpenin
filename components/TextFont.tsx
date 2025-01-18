@@ -14,6 +14,7 @@ interface PropTypes {
 }
 
 const TextFont = ({ children, style, font }: PropTypes) => {
+  console.log(style, font);
   const [fontsLoaded] = useFonts({
     NunitoSans_600SemiBold,
     NunitoSans_400Regular,

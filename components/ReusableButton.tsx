@@ -3,15 +3,15 @@ import React, { ReactNode } from "react";
 
 interface PropTypes {
   children: ReactNode;
-  style: any;
-  textStyle?: any;
+  style?: any;
+
   onPress: () => void;
 }
 
-const ReusableButton = ({ children, style, textStyle, onPress }: PropTypes) => {
+const ReusableButton = ({ children, style, onPress }: PropTypes) => {
   return (
     <Pressable style={style} onPress={onPress}>
-      <Text style={textStyle}>{children}</Text>
+      {children}
     </Pressable>
   );
 };

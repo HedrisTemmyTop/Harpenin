@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
+import RegisterForm from "@/components/RegisterForm";
 
 export default function RegisterScreen() {
   const { login } = useAuth();
@@ -12,11 +13,7 @@ export default function RegisterScreen() {
     router.replace("/home"); // Navigate to home after login
   };
 
-  return (
-    <View>
-      <Text>hELLO WORLD</Text>
-    </View>
-  );
+  return <RegisterForm />;
 }
 
 const styles = StyleSheet.create({
