@@ -14,20 +14,13 @@ interface PropTypes {
   ref?: any;
 }
 
-const Input = ({
-  error,
-  value,
-  onChange,
-  placeholder,
-  label,
-  config,
-  inputStyle,
-  ref,
-}: PropTypes) => {
+const OtpInput = React.forwardRef((props: PropTypes, ref) => {
+  const { error, value, onChange, placeholder, label, config, inputStyle } =
+    props;
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View style={styles.container} ref={ref}>
+    <View style={styles.container}>
       {label && (
         <TextFont
           font="NunitoSans_600SemiBold"
@@ -56,14 +49,13 @@ const Input = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           {...config}
+          ref={ref}
         />
-        <Text style={styles.error}> {error}</Text>
       </View>
     </View>
   );
-};
-
-export default Input;
+});
+export default OtpInput;
 
 const styles = StyleSheet.create({
   container: {
@@ -103,10 +95,7 @@ const styles = StyleSheet.create({
   filled: {
     borderColor: "#000",
   },
-  error: {
-    color: Colors.primary.error,
-    marginTop: 5,
-  },
+
   inputError: {
     borderColor: Colors.primary.error,
   },

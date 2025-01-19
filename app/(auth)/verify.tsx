@@ -1,12 +1,9 @@
 import { View, Text } from "react-native";
 import React from "react";
+import VerifyEmail from "@/components/VerifyEmail";
 
-const verify = () => {
-  return (
-    <View>
-      <Text>verify</Text>
-    </View>
-  );
+const Verify = () => {
+  return <VerifyEmail />;
 };
 
-export default verify;
+export default Verify;

@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.primary.text,
 
+    fontFamily: "Montaga-Regular",
     marginTop: 5,
   },
   skip: {

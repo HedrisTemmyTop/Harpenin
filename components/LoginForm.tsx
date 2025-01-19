@@ -31,7 +31,7 @@ const LoginForm = () => {
         ...prev,
         [key]: {
           error: "",
-          value: "",
+          value,
         },
       };
     });
@@ -85,6 +85,7 @@ const LoginForm = () => {
               value={state.email.value}
               config={{
                 autoCorrect: false,
+                autoCapitalize: "none",
               }}
               error={state.email.error}
             />
@@ -107,6 +108,7 @@ const LoginForm = () => {
               value={state.password.value}
               config={{
                 autoCorrect: false,
+                autoCapitalize: "none",
                 secureTextEntry: true,
               }}
               error={state.password.error}
