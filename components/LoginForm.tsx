@@ -115,7 +115,10 @@ const LoginForm = () => {
             />
           </View>
           <View style={styles.forgot}>
-            <ReusableButton onPress={() => {}} style={{}}>
+            <ReusableButton
+              onPress={() => router.push("/(auth)/forgot-password")}
+              style={{}}
+            >
               <TextFont font="NunitoSans_600SemiBold" style={styles.forgotText}>
                 Forgot my password
               </TextFont>

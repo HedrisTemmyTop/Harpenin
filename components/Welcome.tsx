@@ -18,7 +18,7 @@ const Welcome = () => {
   const [step, setStep] = useState(1);
   const router = useRouter();
   const handlePress = function () {
-    if (step === 4) router.push("/(auth)/verify");
+    if (step === 4) router.push("/(auth)/register");
 
     setStep((prev) => prev + 1);
   };
