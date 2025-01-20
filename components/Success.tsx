@@ -1,41 +1,49 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { ReactNode } from "react";
 import { Colors } from "@/constants/Colors";
 import TextFont from "./TextFont";
 import ReusableButton from "./ReusableButton";
 import { useRouter } from "expo-router";
 
-const VerificationSuccess = () => {
+interface PropTypes {
+  btnText: string;
+  message: string;
+  caption: string;
+  children: ReactNode;
+  onNext: () => void;
+}
+
+const Success = ({
+  btnText,
+  message,
+  caption,
+  children,
+  onNext,
+}: PropTypes) => {
   const router = useRouter();
-  const handleNext = function () {
-    router.push("/(app)/home");
-  };
+
   return (
     <View style={styles.container}>
-      {/* <Text>VerificationSuccess</Text> */}
+      {/* <Text>Success</Text> */}
       <View style={styles.content}>
-        <View style={styles.image}>
-          <Image
-            source={require("@/assets/images/ic_round-mark-email-read.png")}
-          />
-        </View>
+        <View style={styles.image}>{children}</View>
         <TextFont style={styles.email} font="NunitoSans_700Bold">
-          Email already verified!
+          {message}
         </TextFont>
         <TextFont font="NunitoSans_400Regular" style={styles.textSmall}>
-          Oluwatobi, we’re glad to have you onboard. See you around adventurer.
+          {caption}
         </TextFont>
       </View>
-      <ReusableButton onPress={handleNext} style={styles.button}>
+      <ReusableButton onPress={onNext} style={styles.button}>
         <TextFont font="NunitoSans_700Bold" style={styles.buttonText}>
-          Show me what’s Harpenin 👀
+          {btnText}
         </TextFont>
       </ReusableButton>
     </View>
   );
 };
 
-export default VerificationSuccess;
+export default Success;
 
 const styles = StyleSheet.create({
   container: {

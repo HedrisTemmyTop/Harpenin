@@ -103,7 +103,10 @@ const ForgotPasswordForm = () => {
         </View>
       </View>
       <View style={styles.buttons}>
-        <ReusableButton onPress={() => {}} style={styles.button}>
+        <ReusableButton
+          onPress={() => router.push("/(auth)/reset-success")}
+          style={styles.button}
+        >
           <TextFont font="NunitoSans_700Bold" style={styles.buttonText}>
             Reset my password
           </TextFont>
