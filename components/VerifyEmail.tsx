@@ -84,7 +84,7 @@ const VerifyEmail = () => {
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
-      router.push("/(auth)/success");
+      router.push("/(auth)/register-success");
     }, 3000);
   };
   const handleGoBack = function () {
