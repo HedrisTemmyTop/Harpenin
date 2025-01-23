@@ -29,7 +29,7 @@ const Explore = () => {
         <EventBox image={4} />
       </View>
 
-      <View style={styles.newly}>
+      <View style={styles.events}>
         <View style={styles.header}>
           <TextFont font="NunitoSans_700Bold" style={styles.sortHead}>
             Events harpenin in Akure (25){" "}
@@ -46,7 +46,7 @@ const Explore = () => {
             renderItem={({ item, index }: { item: number; index: number }) => (
               <EventBox image={item} index={index} />
             )}
-            contentContainerStyle={{ paddingBottom: 500 }}
+            contentContainerStyle={{ paddingBottom: 20 }}
             data={events}
             keyExtractor={(_, index) => index.toString()}
           />
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
   newly: {
     marginTop: 6,
     backgroundColor: "#fff",
-    flex: 1,
+    // flex: 1,
     paddingTop: 10,
   },
-
+  events: { marginTop: 6, backgroundColor: "#fff", flex: 1, paddingTop: 10 },
   sort: {
     flexDirection: "row",
     alignItems: "center",
