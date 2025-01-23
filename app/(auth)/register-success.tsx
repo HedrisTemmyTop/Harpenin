@@ -11,7 +11,7 @@ const RegisterationSuccess = () => {
       btnText="Show me what’s Harpenin 👀"
       caption="Oluwatobi, we’re glad to have you onboard. See you around adventurer.
      "
-      onNext={() => router.push("/(app)/home")}
+      onNext={() => router.push("/(tabs)/explore")}
     >
       <Image source={require("@/assets/images/ic_round-mark-email-read.png")} />
     </Success>

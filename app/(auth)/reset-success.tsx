@@ -11,7 +11,7 @@ const ResetSuccess = () => {
       btnText="Login to your account"
       caption="Oluwatobi, we’re glad to have you onboard. See you around adventurer.
      "
-      onNext={() => router.push("/(auth)/login")}
+      onNext={() => router.push("/(tabs)/explore")}
     >
       <Image source={require("@/assets/images/lock-colored.png")} />
     </Success>

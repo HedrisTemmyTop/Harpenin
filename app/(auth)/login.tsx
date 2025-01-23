@@ -10,7 +10,7 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     // login("user123"); // Simulate login
-    router.replace("/home"); // Navigate to home after login
+    // router.replace("/home"); // Navigate to home after login
   };
 
   return <LoginForm />;
