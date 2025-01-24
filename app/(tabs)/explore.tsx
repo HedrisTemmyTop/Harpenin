@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   newly: {
-    marginTop: 6,
+    marginTop: 5,
     backgroundColor: "#fff",
     // flex: 1,
     paddingTop: 10,
   },
-  events: { marginTop: 6, backgroundColor: "#fff", flex: 1, paddingTop: 10 },
+  events: { marginTop: 5, backgroundColor: "#fff", flex: 1, paddingTop: 10 },
   sort: {
     flexDirection: "row",
     alignItems: "center",
