@@ -25,8 +25,8 @@ const Explore = () => {
         <TextFont font="NunitoSans_700Bold" style={styles.text}>
           Newly uploaded events
         </TextFont>
-        <EventBox image={1} />
-        <EventBox image={4} />
+        <EventBox image={1} icon="calendar-outline" />
+        <EventBox image={4} icon="calendar-outline" />
       </View>
 
       <View style={styles.events}>
@@ -44,7 +44,7 @@ const Explore = () => {
         <SafeAreaView style={styles.eventContainer}>
           <FlatList
             renderItem={({ item, index }: { item: number; index: number }) => (
-              <EventBox image={item} index={index} />
+              <EventBox icon="calendar-outline" image={item} index={index} />
             )}
             contentContainerStyle={{ paddingBottom: 20 }}
             data={events}

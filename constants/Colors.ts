@@ -25,5 +25,6 @@ export const Colors = {
   },
   purple: {
     primary: "#682BD3",
+    secondary: "#21094C",
   },
 };

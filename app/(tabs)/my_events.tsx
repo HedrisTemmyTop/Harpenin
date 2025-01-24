@@ -1,10 +1,17 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import EventBox from "@/components/EventBox";
+import EventVertical from "@/components/EventVertical";
+import Reminder from "@/components/Reminder";
 import TextFont from "@/components/TextFont";
 import { Colors } from "@/constants/Colors";
-import ReusableButton from "@/components/ReusableButton";
+import React from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 const MyEvents = () => {
+  const events = [
+    1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1,
+    2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4,
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.headContainer}>
@@ -14,23 +21,42 @@ const MyEvents = () => {
         <Text style={styles.headCaption}>
           All events you’re following &gt;&gt;&gt;
         </Text>
+        <Reminder>
+          Attending events with friends just always works. Remember to share
+          one.
+        </Reminder>
       </View>
-      <View style={styles.empty}>
-        <View style={styles.img}>
-          <Image source={require("@/assets/images/empty-events.png")} />
+      <View style={styles.upcoming}>
+        <TextFont font="NunitoSans_700Bold" style={styles.headUpcoming}>
+          Upcoming this week (3)
+        </TextFont>
+        <View style={styles.eventRow}>
+          <FlatList
+            horizontal={true}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item, index }) => (
+              <EventVertical totalItems={events.length} index={index} />
+            )}
+            data={events}
+          />
         </View>
-        <TextFont font="NunitoSans_700Bold" style={styles.boldText}>
-          You’ve not added any events to follow
+      </View>
+      {/* <View style={styles.myEvent}></View> */}
+      {/* <EmptyEvents /> */}
+      <View style={styles.myEvent}>
+        <TextFont font="NunitoSans_700Bold" style={styles.headUpcoming}>
+          Your other events (3)
         </TextFont>
-        <TextFont font="NunitoSans_400Regular" style={styles.smallText}>
-          You can add events you like on the explore tab
-        </TextFont>
-
-        <ReusableButton onPress={() => {}} style={styles.btn}>
-          <TextFont font="NunitoSans_700Bold" style={styles.btnText}>
-            Explore events
-          </TextFont>
-        </ReusableButton>
+        <View style={styles.eventContainer}>
+          <FlatList
+            renderItem={({ item, index }: { item: number; index: number }) => (
+              <EventBox image={item} index={index} icon="share-social-sharp" />
+            )}
+            contentContainerStyle={{ paddingBottom: 20 }}
+            data={events}
+            keyExtractor={(_, index) => index.toString()}
+          />
+        </View>
       </View>
     </View>
   );
@@ -59,34 +85,30 @@ const styles = StyleSheet.create({
     fontFamily: "Montaga-Regular",
     color: Colors.primary.text,
   },
-  empty: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
 
+  upcoming: {
     marginTop: 5,
-  },
-  img: {
-    backgroundColor: Colors.primary.border,
-    width: 80,
-    height: 80,
-    borderRadius: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 40,
-  },
-  boldText: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  smallText: {
-    color: Colors.primary.text,
-  },
+    // paddingHorizontal: 24,
 
-  btnText: {
-    color: Colors.secondary.color,
-    fontSize: 14,
+    paddingVertical: 15,
+    backgroundColor: "#fff",
+    width: "100%",
   },
-  btn: { marginTop: 40 },
+  headUpcoming: {
+    fontSize: 18,
+    paddingHorizontal: 24,
+    // marginTop: 15,
+    marginBottom: 15,
+  },
+  eventRow: {},
+  myEvent: {
+    backgroundColor: "#fff",
+    marginTop: 5,
+    flex: 1,
+    paddingTop: 15,
+  },
+  eventContainer: {
+    // backgroundColor: "red",
+    flex: 1,
+  },
 });

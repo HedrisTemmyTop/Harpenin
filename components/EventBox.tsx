@@ -7,6 +7,7 @@ import { Colors } from "@/constants/Colors";
 interface PropTypes {
   image: number;
   index?: number;
+  icon: "calendar-outline" | "share-social-sharp";
 }
 
 const images: any = {
@@ -17,7 +18,7 @@ const images: any = {
   // Add more images as needed
 };
 
-const EventBox = ({ image, index }: PropTypes) => {
+const EventBox = ({ image, index, icon }: PropTypes) => {
   // Map the image number to the corresponding image path
   const eventImage = images[image];
 
@@ -34,12 +35,7 @@ const EventBox = ({ image, index }: PropTypes) => {
           </TextFont>
         </View>
       </View>
-      <IconButton
-        color="black"
-        onPress={() => {}}
-        icon="calendar-outline"
-        size={24}
-      />
+      <IconButton color="#B3B3C0" onPress={() => {}} icon={icon} size={24} />
     </View>
   );
 };
