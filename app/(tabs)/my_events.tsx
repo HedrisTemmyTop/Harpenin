@@ -50,8 +50,16 @@ const MyEvents = () => {
         <View style={styles.eventContainer}>
           <FlatList
             renderItem={({ item, index }: { item: number; index: number }) => (
-              <EventBox image={item} index={index} icon="share-social-sharp" />
+              <EventBox
+                iconColor="#7E7E8E"
+                active={false}
+                image={item}
+                index={index}
+                icon="share-social-sharp"
+                onIconPress={() => {}}
+              />
             )}
+            showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 20 }}
             data={events}
             keyExtractor={(_, index) => index.toString()}

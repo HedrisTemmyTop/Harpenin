@@ -1,13 +1,18 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Image, Modal, StyleSheet, Text, View } from "react-native";
+import React, { ReactNode } from "react";
 import IconButton from "./IconButton";
 import TextFont from "./TextFont";
 import { Colors } from "@/constants/Colors";
+import BottomDrawer from "./BottomDrawer";
 
 interface PropTypes {
   image: number;
   index?: number;
-  icon: "calendar-outline" | "share-social-sharp";
+  icon?: "calendar-outline" | "share-social-sharp";
+  onIconPress: VoidFunction;
+  iconColor: string;
+  active: boolean;
+  iconImage?: ReactNode;
 }
 
 const images: any = {
@@ -18,25 +23,44 @@ const images: any = {
   // Add more images as needed
 };
 
-const EventBox = ({ image, index, icon }: PropTypes) => {
+const EventBox = ({
+  image,
+  index,
+  icon,
+  iconColor,
+  onIconPress,
+  iconImage,
+  active,
+}: PropTypes) => {
   // Map the image number to the corresponding image path
   const eventImage = images[image];
+  const path = active
+    ? require("@/assets/images/calendar-added.png")
+    : require("@/assets/images/calendar-add.png");
 
   return (
-    <View style={styles.eventBox}>
-      <View style={styles.eventMain}>
-        <Image source={eventImage} style={styles.eventImg} />
-        <View>
-          <TextFont font="NunitoSans_600SemiBold" style={styles.eventText}>
-            Art Exhibition 2022
-          </TextFont>
-          <TextFont font="NunitoSans_600SemiBold" style={styles.eventTime}>
-            July 16th · WAT 8:00PM {index}
-          </TextFont>
+    <>
+      <View style={styles.eventBox}>
+        <View style={styles.eventMain}>
+          <Image source={eventImage} style={styles.eventImg} />
+          <View>
+            <TextFont font="NunitoSans_600SemiBold" style={styles.eventText}>
+              Art Exhibition 2022
+            </TextFont>
+            <TextFont font="NunitoSans_600SemiBold" style={styles.eventTime}>
+              July 16th · WAT 8:00PM {index}
+            </TextFont>
+          </View>
         </View>
+        <IconButton
+          color={iconColor}
+          onPress={onIconPress}
+          iconImage={iconImage}
+          icon={icon}
+          size={24}
+        />
       </View>
-      <IconButton color="#B3B3C0" onPress={() => {}} icon={icon} size={24} />
-    </View>
+    </>
   );
 };
 

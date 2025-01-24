@@ -22,6 +22,7 @@ export const Colors = {
   },
   tertiary: {
     border: "#F7CE91",
+    success: "#D6FFB7",
   },
   purple: {
     primary: "#682BD3",
