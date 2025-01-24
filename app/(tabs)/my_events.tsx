@@ -111,4 +111,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
     flex: 1,
   },
+  marginRight: {
+    marginRight: 50,
+  },
 });

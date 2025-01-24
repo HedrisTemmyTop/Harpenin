@@ -12,7 +12,11 @@ const EventVertical = ({ index, totalItems }: PropTypes) => {
   const lastItem = index === totalItems - 1;
   return (
     <View
-      style={[firstItem && styles.marginLeft, lastItem && styles.marginRight]}
+      style={[
+        styles.margin,
+        firstItem && styles.marginLeft,
+        lastItem && styles.marginRight,
+      ]}
     >
       <View>
         <Image
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
   },
 
   eventText: {
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 20,
     color: "#111111",
     marginTop: 15,
@@ -56,5 +60,9 @@ const styles = StyleSheet.create({
   },
   marginRight: {
     marginRight: 24,
+  },
+  margin: {
+    marginLeft: 10,
+    // maxWidth: 153,
   },
 });
