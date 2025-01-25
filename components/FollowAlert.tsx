@@ -28,7 +28,7 @@ const FollowAlert = ({
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [children]);
 
   return (
     <View style={styles.container}>
