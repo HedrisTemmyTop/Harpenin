@@ -4,8 +4,11 @@ import TextFont from "@/components/TextFont";
 import ReusableButton from "@/components/ReusableButton";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "@/constants/Colors";
+import { useRoute } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 
 const Profile = () => {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -19,7 +22,12 @@ const Profile = () => {
           </TextFont>
         </View>
       </View>
-      <ReusableButton onPress={() => {}} style={styles.button}>
+      <ReusableButton
+        onPress={() => {
+          router.push("/(app)/create");
+        }}
+        style={styles.button}
+      >
         <View style={styles.btn}>
           <Image
             style={styles.btnImg}
