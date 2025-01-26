@@ -29,3 +29,5 @@ export const Colors = {
     secondary: "#21094C",
   },
 };
+
+// background: linear-gradient(11.04deg, #93710E 32.38%, #F1A904 94.36%);
