@@ -7,8 +7,14 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Input from "@/components/Input";
 import ReusableButton from "@/components/ReusableButton";
 import { LinearGradient } from "expo-linear-gradient";
+// import DatePicker from "react-native-datepicker";
+
 const Create = () => {
+  const [date, setDate] = useState("");
+
   const [singleDay, setSingleDay] = useState(true);
+
+  const handleDateChange = function (enteredDate: string) {};
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -33,7 +39,6 @@ const Create = () => {
 
       <ScrollView style={styles.form}>
         <View style={styles.imageContainer}>
-          {" "}
           <View style={styles.images}>
             <Ionicons
               name="image-outline"
@@ -121,6 +126,17 @@ const Create = () => {
               </TextFont>
             </ReusableButton>
           </View>
+
+          {/* <DatePicker
+            style={{ width: 200 }}
+            date={date}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            onDateChange={(date) => setDate(date)}
+          /> */}
           {/* <View style={styles.inputWrapper}>
             <Input
               error=""
