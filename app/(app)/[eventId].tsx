@@ -1,105 +1,130 @@
+import BottomDrawer from "@/components/BottomDrawer";
+import EventDetailsComponent from "@/components/EventDetails";
+import IconButton from "@/components/IconButton";
+import ReportDrawer from "@/components/ReportDrawer";
+import ReusableButton from "@/components/ReusableButton";
+import ShareDrawer from "@/components/ShareDrawer";
+import TextFont from "@/components/TextFont";
+import { Colors } from "@/constants/Colors";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRoute } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
 import {
   Modal,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React, { useState } from "react";
-import { useRoute } from "@react-navigation/native";
-import TextFont from "@/components/TextFont";
-import IconButton from "@/components/IconButton";
-import { useRouter } from "expo-router";
-import EventDetailsComponent from "@/components/EventDetails";
-import ReusableButton from "@/components/ReusableButton";
-import { Colors } from "@/constants/Colors";
-import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function EventDetails() {
   const [modal, setModal] = useState(false);
+  const [drawer, setDrawer] = useState("");
   const route = useRoute();
   const router = useRouter();
   // console.log(route.params.eventId);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <IconButton
-          onPress={() => router.back()}
-          icon={"arrow-back"}
-          size={24}
-          color={"black"}
-          style={{}}
-        />
-        <TextFont font="NunitoSans_700Bold" style={styles.headerText}>
-          Event details
-        </TextFont>
-        <IconButton
-          onPress={() => setModal(true)}
-          icon={"ellipsis-vertical"}
-          size={24}
-          color={"black"}
-          style={{}}
-        />
-        <Modal
-          visible={modal}
-          transparent={true}
-          animationType="fade"
-          onRequestClose={() => setModal(false)}
-        >
-          <TouchableWithoutFeedback onPress={() => setModal(false)}>
-            <View style={styles.modal}>
-              <View style={styles.modalAction}>
-                <ReusableButton onPress={() => {}} style={styles.modalBtn}>
-                  <Ionicons
-                    name="share-social-sharp"
-                    size={20}
-                    color={"#B3B3C0"}
-                  />
-                  <TextFont
-                    font="NunitoSans_600SemiBold"
-                    style={[styles.modalBtnText, styles.black]}
-                  >
-                    Share
-                  </TextFont>
-                </ReusableButton>
-                <ReusableButton onPress={() => {}} style={styles.modalBtn}>
-                  <Ionicons
-                    name="information-circle"
-                    size={20}
-                    color={"#EF3535"}
-                  />
-                  <TextFont
-                    font="NunitoSans_600SemiBold"
-                    style={[styles.modalBtnText, styles.red]}
-                  >
-                    Report event
-                  </TextFont>
-                </ReusableButton>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-      </View>
-      {/* <View style={styles.image}>
-      <Image
-        source={require("@/assets/images/preview.png")}
-        style={styles.img}
-      />
-    </View> */}
-
-      <EventDetailsComponent />
-
-      <View style={styles.register}>
-        <ReusableButton onPress={() => {}} style={styles.registerBtn}>
-          <TextFont font="NunitoSans_700Bold" style={styles.registerText}>
-            Register (Free)
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <IconButton
+            onPress={() => router.back()}
+            icon={"arrow-back"}
+            size={24}
+            color={"black"}
+            style={{}}
+          />
+          <TextFont font="NunitoSans_700Bold" style={styles.headerText}>
+            Event details
           </TextFont>
-        </ReusableButton>
-      </View>
+          <IconButton
+            onPress={() => setModal(true)}
+            icon={"ellipsis-vertical"}
+            size={24}
+            color={"black"}
+            style={{}}
+          />
 
-      {/* <CarouselComponent /> */}
-    </View>
+          <Modal
+            visible={modal}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={() => setModal(false)}
+            // style={styles.modalWrapper}
+          >
+            <TouchableWithoutFeedback onPress={() => setModal(false)}>
+              <View style={styles.modalOverlay}>
+                <View style={styles.modal}>
+                  <View style={styles.modalAction}>
+                    <ReusableButton
+                      onPress={() => {
+                        setDrawer("share");
+                      }}
+                      style={styles.modalBtn}
+                    >
+                      <Ionicons
+                        name="share-social-sharp"
+                        size={20}
+                        color={"#B3B3C0"}
+                      />
+                      <TextFont
+                        font="NunitoSans_600SemiBold"
+                        style={[styles.modalBtnText, styles.black]}
+                      >
+                        Share
+                      </TextFont>
+                    </ReusableButton>
+                    <ReusableButton
+                      onPress={() => {
+                        setDrawer("report");
+                      }}
+                      style={styles.modalBtn}
+                    >
+                      <Ionicons
+                        name="information-circle"
+                        size={20}
+                        color={"#EF3535"}
+                      />
+                      <TextFont
+                        font="NunitoSans_600SemiBold"
+                        style={[styles.modalBtnText, styles.red]}
+                      >
+                        Report event
+                      </TextFont>
+                    </ReusableButton>
+                  </View>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </Modal>
+        </View>
+
+        <EventDetailsComponent />
+
+        <View style={styles.register}>
+          <ReusableButton onPress={() => {}} style={styles.registerBtn}>
+            <TextFont font="NunitoSans_700Bold" style={styles.registerText}>
+              Register (Free)
+            </TextFont>
+          </ReusableButton>
+        </View>
+
+        {/* <CarouselComponent /> */}
+      </View>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={!!drawer}
+        onRequestClose={() => setDrawer("")}
+      >
+        <BottomDrawer onClose={() => setDrawer("")}>
+          {drawer === "share" && <ShareDrawer />}
+          {drawer === "report" && <ReportDrawer />}
+          {/* <ReminderDrawer /> */}
+        </BottomDrawer>
+      </Modal>
+    </>
   );
 }
 
@@ -150,19 +175,20 @@ const styles = StyleSheet.create({
   modal: {
     // width: 200,
     // height: 200,
-    position: "absolute",
-    bottom: "-250%",
-    zIndex: 2,
-    right: 24,
+    backgroundColor: "#fff",
     borderRadius: 8,
     paddingHorizontal: 18,
     paddingVertical: 16,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
+    width: 200,
+    elevation: 5, // Shadow for Android
+    shadowColor: "#000", // Shadow for iOS
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.21,
     shadowRadius: 9,
-    elevation: 5,
+    position: "absolute",
+    right: 24,
+    top: 100,
+    zIndex: 3,
   },
   modalAction: {
     gap: 20,
@@ -179,5 +205,17 @@ const styles = StyleSheet.create({
   },
   red: {
     color: "#EF3535",
+  },
+  modalOverlay: {
+    flex: 1,
+
+    // justifyContent: "center",
+    // alignItems: "center",
+    // position
+    // backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+  },
+  modalWrapper: {
+    width: 10,
+    backgroundColor: "red",
   },
 });

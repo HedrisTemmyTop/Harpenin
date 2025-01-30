@@ -18,6 +18,7 @@ import BottomDrawer from "@/components/BottomDrawer";
 import { useReminder } from "@/context/ReminderContext";
 import FollowAlert from "@/components/FollowAlert";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ReminderDrawer from "@/components/ReminderDrawer";
 
 type IconName = keyof typeof Ionicons.glyphMap;
 const events = [
@@ -74,11 +75,13 @@ const Explore = () => {
         visible={activeId !== null}
         onRequestClose={() => setActiveId(null)}
       >
-        <BottomDrawer
-          onSubmit={handleAdded}
-          onClose={() => setActiveId(null)}
-          activeId={activeId}
-        />
+        <BottomDrawer onClose={() => setActiveId(null)}>
+          <ReminderDrawer
+            onClose={() => setActiveId(null)}
+            activeId={activeId}
+            onSubmit={handleAdded}
+          />
+        </BottomDrawer>
       </Modal>
       <View style={styles.container}>
         <Header />
