@@ -47,16 +47,27 @@ const Create = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerMain}>
-          <IconButton
-            color="black"
-            icon="close"
-            size={24}
-            style={{}}
-            onPress={() => {
-              router.push("/(tabs)/profile");
-            }}
-          />
-
+          {step === 1 ? (
+            <IconButton
+              color="black"
+              icon="close"
+              size={24}
+              style={{}}
+              onPress={() => {
+                router.push("/(tabs)/profile");
+              }}
+            />
+          ) : (
+            <IconButton
+              icon="arrow-back"
+              color="black"
+              size={24}
+              style={{}}
+              onPress={() => {
+                setStep(1);
+              }}
+            />
+          )}
           <TextFont style={styles.textSize} font="NunitoSans_700Bold">
             Create event
           </TextFont>
@@ -74,7 +85,7 @@ const Create = () => {
           {step === 2 && (
             <ReusableButton
               onPress={() => {
-                setStep(1);
+                router.push("/(app)/preview");
               }}
               style={[styles.proceed, styles.preview]}
             >

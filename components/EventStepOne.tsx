@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    // paddingTop: 32,
+    marginBottom: 32,
     paddingBottom: 24,
 
     borderBottomWidth: 1,
