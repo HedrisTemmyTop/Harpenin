@@ -13,7 +13,33 @@ import EventStepOne from "@/components/EventStepOne";
 
 const Create = () => {
   const [step, setStep] = useState(1);
+
+  const [images, setImages] = useState([]);
+  const initialState = {
+    title: {
+      value: "",
+      error: "",
+    },
+    description: {
+      value: "",
+      error: "",
+    },
+    info: {
+      value: "",
+      error: "",
+    },
+    dates: [
+      {
+        date: "",
+        startTime: "",
+        endTime: "",
+      },
+    ],
+  };
+
+  const [state, setState] = useState(initialState);
   const handleDateChange = function (enteredDate: string) {};
+  const handleChange = function (name) {};
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -37,7 +63,7 @@ const Create = () => {
       </View>
 
       <ScrollView style={styles.form}>
-        {step === 1 && <EventStepOne />}
+        {step === 1 && <EventStepOne onChange={handleChange} />}
         <View style={styles.button}>
           {step === 2 && (
             <ReusableButton

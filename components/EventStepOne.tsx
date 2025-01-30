@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
 import ReusableButton from "./ReusableButton";
 import TextFont from "./TextFont";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -7,34 +7,120 @@ import { Colors } from "@/constants/Colors";
 import Input from "./Input";
 // import DatePicker from "react-native-datepicker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as ImagePicker from "expo-image-picker";
 
 // import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
 const EventStepOne = () => {
+  const defaultData = { value: "", error: "" };
   const [date, setDate] = useState(new Date(1598051730000));
   // const [date, setDate] = useState("");
   const [mode, setMode] = useState("date");
+  const [title, setTitle] = useState(defaultData);
+  const [description, setDescription] = useState(defaultData);
+  const [info, setInfo] = useState(defaultData);
+  const [images, setImages] = useState<string[] | null>(null);
 
+  const pickImage = async (type?: string) => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      console.log("result", result.assets[0]);
+      setImages((prev: string[] | null) => {
+        if (type === "edit" && prev) {
+          return prev.map((item, i) => (i === 0 ? result.assets[0].uri : item));
+          //   const items = prev;
+          //   items.splice(0, 1, result.assets[0].uri);
+          //   console.log(items);
+          //   return items;
+        }
+        if (prev) return [...prev, result.assets[0].uri];
+        else return [result.assets[0].uri];
+      });
+    }
+  };
   const onChange = () => {
     // const currentDate = selectedDate;
     // setShow(false);
     // setDate(currentDate);
   };
+  const handleEdit = async function () {
+    await pickImage("edit");
+  };
+  const handleRemove = function () {
+    setImages(
+      (prev: string[] | null) => prev && prev?.filter((_, i) => i !== 0)
+    );
+  };
   const [singleDay, setSingleDay] = useState(true);
-
+  useEffect(() => {
+    // console.log(images, "images");
+  }, [images]);
   return (
     <>
-      <View style={styles.imageContainer}>
-        <View style={styles.images}>
-          <Ionicons
-            name="image-outline"
-            size={24}
-            color={Colors.primary.line}
-          />
-          <TextFont font="NunitoSans_600SemiBold" style={styles.imageCap}>
-            Add event fliers (3 max)
-          </TextFont>
+      {images && images.length > 0 ? (
+        <ImageBackground source={{ uri: images[0] }} style={styles.imageBg}>
+          <ReusableButton onPress={handleEdit}>
+            <View style={styles.imgBtn}>
+              <Image source={require("@/assets/images/edit.png")} />
+            </View>
+          </ReusableButton>
+          <ReusableButton onPress={handleRemove}>
+            <View style={styles.imgBtn}>
+              <Image source={require("@/assets/images/delete.png")} />
+            </View>
+          </ReusableButton>
+        </ImageBackground>
+      ) : (
+        <View style={styles.imageContainer}>
+          <ReusableButton onPress={pickImage} style={styles.images}>
+            <Ionicons
+              name="image-outline"
+              size={24}
+              color={Colors.primary.line}
+            />
+            <TextFont font="NunitoSans_600SemiBold" style={styles.imageCap}>
+              Add event fliers (3 max)
+            </TextFont>
+          </ReusableButton>
         </View>
+      )}
+      <View style={styles.imageContainer}>
+        {images && images.length > 0 && (
+          <View>
+            <View style={styles.arrange}>
+              <Image source={require("@/assets/images/arrange.png")} />
+              <TextFont font="NunitoSans_Regular" style={styles.arrangeText}>
+                Hold and drag to re-arrange images
+              </TextFont>
+            </View>
+            <View style={styles.displayedImage}>
+              {images.map((image, index) => (
+                <View key={image} style={styles.img}>
+                  <Image source={{ uri: image }} style={styles.imgContent} />
+                  {index === 0 && (
+                    <TextFont
+                      font="NunitoSans_600SemiBold"
+                      style={styles.cover}
+                    >
+                      Cover photo
+                    </TextFont>
+                  )}
+                </View>
+              ))}
+              {images.length < 3 && (
+                <ReusableButton onPress={pickImage} style={styles.addImage}>
+                  <Ionicons name="add" size={24} color={Colors.primary.text} />
+                </ReusableButton>
+              )}
+            </View>
+          </View>
+        )}
       </View>
 
       <View style={styles.inputContainer}>
@@ -211,13 +297,78 @@ const styles = StyleSheet.create({
     // marginHorizontal: 24,
     flex: 1,
   },
+  imageBg: {
+    height: 180,
+    marginTop: 32,
+    width: "100%",
+    // backgroundColor: Colors.primary.border,
+    borderRadius: 10,
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    // height: 178,
+    gap: 4,
+    // borderWidth: 1,
+    borderStyle: "dashed",
+    borderColor: Colors.primary.line,
+
+    // marginHorizontal: 24,
+    flex: 1,
+  },
+  imgBtn: {
+    backgroundColor: "rgba(0,0,0,.6)",
+    width: 46,
+    height: 46,
+    borderRadius: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+    // opacity: 0.1,
+  },
+  displayedImage: {
+    flexDirection: "row",
+    marginBottom: 40,
+    gap: 8,
+  },
+  arrange: {
+    flexDirection: "row",
+    marginBottom: 10,
+    gap: 8,
+  },
+  arrangeText: {
+    color: Colors.primary.text,
+    // flexDirection: "row",
+  },
+  img: {
+    width: 86,
+    height: 72,
+  },
+  imgContent: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    borderRadius: 6,
+  },
+  addImage: {
+    borderStyle: "dashed",
+    borderWidth: 1,
+    borderColor: Colors.primary.text,
+    borderRadius: 6,
+    width: 86,
+    height: 72,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cover: {
+    color: Colors.primary.button,
+    fontSize: 14,
+  },
   imageCap: {
     fontSize: 14,
   },
 
   inputContainer: {
     flex: 1,
-    paddingTop: 32,
+    // paddingTop: 32,
     paddingBottom: 24,
 
     borderBottomWidth: 1,

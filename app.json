@@ -34,6 +34,13 @@
         }
       ],
       [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Happenin to access your photos.",
+          "cameraPermission": "Allow Happenin to access your camera"
+        }
+      ],
+      [
         "expo-font",
         {
           "fonts": ["./assets/fonts/Montaga-Regular.ttf"]
