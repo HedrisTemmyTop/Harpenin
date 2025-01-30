@@ -2,6 +2,7 @@ import IconButton from "@/components/IconButton";
 import TextFont from "@/components/TextFont";
 import { Colors } from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
   Dimensions,
@@ -34,8 +35,9 @@ const data = [
   },
 ];
 const Preview = () => {
-  const [currentIndex, setCurrentIndex] = useState(0); // Track the current index
-  const flatListRef = useRef<FlatList>(null); // Ref for the FlatList
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const flatListRef = useRef<FlatList>(null);
+  const router = useRouter();
 
   const handleScroll = (event: any) => {
     const offsetX = event.nativeEvent.contentOffset.x;
@@ -46,7 +48,7 @@ const Preview = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <IconButton
-          onPress={() => {}}
+          onPress={() => router.back()}
           icon={"arrow-back"}
           size={24}
           color={"black"}
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
   },
   image: {
     // width: "100%",
-    backgroundColor: "red",
+    // backgroundColor: "red",
     // flex: 1,
   },
   img: {
