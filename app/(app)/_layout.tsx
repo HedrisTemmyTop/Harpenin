@@ -12,6 +12,8 @@ export default function AppLayout() {
       }}
     >
       <Stack.Screen name="create" />
+      <Stack.Screen name="preview" />
+      <Stack.Screen name="eventId" />
     </Stack>
   );
 }

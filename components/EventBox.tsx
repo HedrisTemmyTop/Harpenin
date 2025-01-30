@@ -4,6 +4,8 @@ import IconButton from "./IconButton";
 import TextFont from "./TextFont";
 import { Colors } from "@/constants/Colors";
 import BottomDrawer from "./BottomDrawer";
+import ReusableButton from "./ReusableButton";
+import { useRouter } from "expo-router";
 
 interface PropTypes {
   image: number;
@@ -32,6 +34,7 @@ const EventBox = ({
   iconImage,
   active,
 }: PropTypes) => {
+  const router = useRouter();
   // Map the image number to the corresponding image path
   const eventImage = images[image];
   const path = active
@@ -40,7 +43,10 @@ const EventBox = ({
 
   return (
     <>
-      <View style={styles.eventBox}>
+      <ReusableButton
+        onPress={() => router.push(`/(app)/${index}`)}
+        style={styles.eventBox}
+      >
         <View style={styles.eventMain}>
           <Image source={eventImage} style={styles.eventImg} />
           <View>
@@ -59,7 +65,7 @@ const EventBox = ({
           icon={icon}
           size={24}
         />
-      </View>
+      </ReusableButton>
     </>
   );
 };
