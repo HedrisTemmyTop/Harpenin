@@ -348,6 +348,6 @@ const styles = StyleSheet.create({
   aboutText: {
     color: Colors.primary.text,
     lineHeight: 21,
-    marginBottom: 20,
+    marginBottom: 100,
   },
 });
