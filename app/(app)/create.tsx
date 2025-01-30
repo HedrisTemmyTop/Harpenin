@@ -8,10 +8,13 @@ import Input from "@/components/Input";
 import ReusableButton from "@/components/ReusableButton";
 import { LinearGradient } from "expo-linear-gradient";
 import EventStepOne from "@/components/EventStepOne";
+import EventStepTwo from "@/components/EventStepTwo";
+import { useRouter } from "expo-router";
 // import DatePicker from "react-native-datepicker";
 // import EventDateTimePicker from "@/components/DateInput";
 
 const Create = () => {
+  const router = useRouter();
   const [step, setStep] = useState(1);
 
   const [images, setImages] = useState([]);
@@ -39,7 +42,7 @@ const Create = () => {
 
   const [state, setState] = useState(initialState);
   const handleDateChange = function (enteredDate: string) {};
-  const handleChange = function (name) {};
+  // const handleChange = function (name) {};
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -49,7 +52,9 @@ const Create = () => {
             icon="close"
             size={24}
             style={{}}
-            onPress={() => {}}
+            onPress={() => {
+              router.push("/(tabs)/profile");
+            }}
           />
 
           <TextFont style={styles.textSize} font="NunitoSans_700Bold">
@@ -63,7 +68,8 @@ const Create = () => {
       </View>
 
       <ScrollView style={styles.form}>
-        {step === 1 && <EventStepOne onChange={handleChange} />}
+        {step === 1 && <EventStepOne />}
+        {step === 2 && <EventStepTwo />}
         <View style={styles.button}>
           {step === 2 && (
             <ReusableButton
@@ -87,7 +93,7 @@ const Create = () => {
             style={styles.proceed}
           >
             <TextFont style={styles.proceedText} font="NunitoSans_700Bold">
-              Proceed
+              {step === 1 ? "Proceed" : "Post event"}
             </TextFont>
           </ReusableButton>
         </View>

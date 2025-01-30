@@ -8,6 +8,7 @@ import Input from "./Input";
 // import DatePicker from "react-native-datepicker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
+import EventButton from "./EventButton";
 
 // import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
@@ -165,11 +166,18 @@ const EventStepOne = () => {
         </View>
       </View>
       <View style={styles.footer}>
-        <TextFont font="NunitoSans_600SemiBold" style={styles.label}>
+        {/* <TextFont font="NunitoSans_600SemiBold" style={styles.label}>
           Event date and time
-        </TextFont>
+        </TextFont> */}
+        <EventButton
+          isActive={singleDay}
+          firstButton="Single day event"
+          secondButton="Multiple day event"
+          onToggle={(arg) => setSingleDay(arg)}
+          label="Event date & time"
+        />
 
-        <View style={styles.btns}>
+        {/* <View style={styles.btns}>
           <ReusableButton
             onPress={() => {
               setSingleDay(true);
@@ -196,7 +204,7 @@ const EventStepOne = () => {
               Multiple day event
             </TextFont>
           </ReusableButton>
-        </View>
+        </View> */}
 
         <View style={styles.times}>
           <View style={styles.time}>
@@ -406,36 +414,6 @@ const styles = StyleSheet.create({
     // marginTop: 24,
   },
 
-  btns: {
-    flexDirection: "row",
-    backgroundColor: Colors.primary.border,
-    justifyContent: "space-between",
-    borderRadius: 10,
-    padding: 6,
-    marginBottom: 40,
-  },
-  footerBtn: {
-    height: 36,
-    justifyContent: "center",
-    alignItems: "center",
-    flexBasis: "50%",
-    borderRadius: 6,
-    // marginBottom: 40,
-  },
-  btnActive: {
-    backgroundColor: "#fff",
-  },
-  textBtn: {
-    color: Colors.primary.text,
-    fontSize: 14,
-  },
-  textActive: {
-    color: "#B88A2A",
-
-    // backgroundClip: "text",
-    //    // Apply gradient inside text on web, but not supported in React Native yet
-    // -webkit-background-clip: 'text',
-  },
   date: {
     // backgroundColor: "white",
     // borderWidth: 1,
