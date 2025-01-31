@@ -1,12 +1,18 @@
 import { BlurView } from "expo-blur";
 import React, { ReactNode } from "react";
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 interface PropTypes {
   onClose: VoidFunction;
   children: ReactNode;
 }
 // import { BlurView } from "@react-native-community/blur";
+const deviceHeight = Dimensions.get("window").height;
 
 const BottomDrawer = ({ onClose, children }: PropTypes) => {
   console.log("draw");
@@ -14,7 +20,9 @@ const BottomDrawer = ({ onClose, children }: PropTypes) => {
   return (
     <TouchableWithoutFeedback onPress={onClose}>
       <BlurView intensity={30} tint="dark" style={styles.blurView}>
-        <View style={styles.conatiner}>{children}</View>
+        <View style={styles.conatiner}>
+          <View style={styles.wrapper}>{children}</View>
+        </View>
       </BlurView>
     </TouchableWithoutFeedback>
   );
@@ -41,5 +49,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     overflow: "hidden",
     // borderRadius: 20,
+  },
+  wrapper: {
+    backgroundColor: "#FFF",
+    borderTopRightRadius: 24,
+    borderTopLeftRadius: 24,
+    height: deviceHeight / 2,
+    paddingHorizontal: 24,
+    paddingTop: 52,
+    paddingBottom: 36,
+    maxHeight: 450,
   },
 });

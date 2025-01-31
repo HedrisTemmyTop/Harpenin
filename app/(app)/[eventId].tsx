@@ -1,6 +1,7 @@
 import BottomDrawer from "@/components/BottomDrawer";
 import EventDetailsComponent from "@/components/EventDetails";
 import IconButton from "@/components/IconButton";
+import ReminderDrawer from "@/components/ReminderDrawer";
 import ReportDrawer from "@/components/ReportDrawer";
 import ReusableButton from "@/components/ReusableButton";
 import ShareDrawer from "@/components/ShareDrawer";
@@ -9,10 +10,11 @@ import { Colors } from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRoute } from "@react-navigation/native";
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   StyleSheet,
+  Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
@@ -23,9 +25,26 @@ export default function EventDetails() {
   const route = useRoute();
   const router = useRouter();
   // console.log(route.params.eventId);
-
+  useEffect(() => {
+    console.log(!!drawer, drawer);
+  }, [drawer]);
   return (
     <>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={drawer !== ""}
+        onRequestClose={() => setDrawer("")}
+      >
+        <View style={styles.modalOverlay}>
+          <View
+            style={{ backgroundColor: "black", padding: 40, borderRadius: 10 }}
+          >
+            <Text>This is a simple modal</Text>
+            {/* <Button title="Close" onPress={() => setDrawer("")} /> */}
+          </View>
+        </View>
+      </Modal>
       <View style={styles.container}>
         <View style={styles.header}>
           <IconButton
@@ -112,18 +131,8 @@ export default function EventDetails() {
 
         {/* <CarouselComponent /> */}
       </View>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={!!drawer}
-        onRequestClose={() => setDrawer("")}
-      >
-        <BottomDrawer onClose={() => setDrawer("")}>
-          {drawer === "share" && <ShareDrawer />}
-          {drawer === "report" && <ReportDrawer />}
-          {/* <ReminderDrawer /> */}
-        </BottomDrawer>
-      </Modal>
+
+      {/* <ReminderDrawer /> */}
     </>
   );
 }

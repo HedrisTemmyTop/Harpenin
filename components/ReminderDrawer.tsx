@@ -10,7 +10,6 @@ interface PropTypes {
   onSubmit: () => void;
 }
 
-const deviceHeight = Dimensions.get("window").height;
 const ReminderDrawer = ({ activeId, onSubmit, onClose }: PropTypes) => {
   const { onAddReminder } = useReminder();
   const handleAddReminder = function () {
@@ -20,7 +19,7 @@ const ReminderDrawer = ({ activeId, onSubmit, onClose }: PropTypes) => {
     onClose();
   };
   return (
-    <View style={styles.wrapper}>
+    <>
       <View style={styles.content}>
         <View style={styles.bell}>
           <Image source={require("@/assets/images/bell.png")} />
@@ -38,23 +37,13 @@ const ReminderDrawer = ({ activeId, onSubmit, onClose }: PropTypes) => {
           Yes, thanks
         </TextFont>
       </ReusableButton>
-    </View>
+    </>
   );
 };
 
 export default ReminderDrawer;
 
 const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: "#FFF",
-    borderTopRightRadius: 24,
-    borderTopLeftRadius: 24,
-    height: deviceHeight / 2,
-    paddingHorizontal: 24,
-    paddingTop: 52,
-    paddingBottom: 36,
-    maxHeight: 450,
-  },
   content: {
     justifyContent: "center",
     alignItems: "center",
