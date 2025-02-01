@@ -41,7 +41,6 @@ export default function EventDetails() {
             style={{ backgroundColor: "black", padding: 40, borderRadius: 10 }}
           >
             <Text>This is a simple modal</Text>
-            {/* <Button title="Close" onPress={() => setDrawer("")} /> */}
           </View>
         </View>
       </Modal>
