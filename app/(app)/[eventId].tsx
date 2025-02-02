@@ -40,7 +40,7 @@ export default function EventDetails() {
           <View
             style={{ backgroundColor: "black", padding: 40, borderRadius: 10 }}
           >
-            <Text>This is a simple modal</Text>
+            {/* modal should be here */}
           </View>
         </View>
       </Modal>
