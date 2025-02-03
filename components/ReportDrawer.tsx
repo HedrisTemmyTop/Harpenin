@@ -35,6 +35,7 @@ const ReportDrawer = () => {
           onChange={() => {}}
           placeholder={"I am reporting something else"}
           inputStyle={styles.input}
+          containerStyle={styles.containerStyle}
         />
         <ReusableButton onPress={() => {}} style={styles.submitBtn}>
           <TextFont font="NunitoSans_600SemiBold" style={styles.submitBtnText}>
@@ -87,5 +88,8 @@ const styles = StyleSheet.create({
   submitBtnText: {
     color: "#fff",
     fontSize: 16,
+  },
+  containerStyle: {
+    flex: 0,
   },
 });

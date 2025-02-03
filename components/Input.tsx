@@ -10,6 +10,7 @@ interface PropTypes {
   label?: string;
   config?: any;
   error?: string;
+  containerStyle?: any;
   inputStyle?: any;
   ref?: any;
 }
@@ -23,11 +24,12 @@ const Input = ({
   config,
   inputStyle,
   ref,
+  containerStyle,
 }: PropTypes) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View style={styles.container} ref={ref}>
+    <View style={[styles.container, containerStyle]} ref={ref}>
       {label && (
         <TextFont
           font="NunitoSans_600SemiBold"
@@ -67,7 +69,7 @@ export default Input;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     maxHeight: "100%",
   },
   inputWrapper: {
