@@ -10,18 +10,19 @@ import {
 interface PropTypes {
   onClose: VoidFunction;
   children: ReactNode;
+  style?: any;
 }
 // import { BlurView } from "@react-native-community/blur";
 const deviceHeight = Dimensions.get("window").height;
 
-const BottomDrawer = ({ onClose, children }: PropTypes) => {
+const BottomDrawer = ({ onClose, children, style }: PropTypes) => {
   console.log("draw");
 
   return (
     <TouchableWithoutFeedback onPress={onClose}>
       <BlurView intensity={30} tint="dark" style={styles.blurView}>
         <View style={styles.conatiner}>
-          <View style={styles.wrapper}>{children}</View>
+          <View style={[styles.wrapper, style]}>{children}</View>
         </View>
       </BlurView>
     </TouchableWithoutFeedback>
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
     overflow: "hidden",
+    height: "100%",
     // borderRadius: 20,
   },
   wrapper: {

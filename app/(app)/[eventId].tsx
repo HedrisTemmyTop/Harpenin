@@ -12,38 +12,52 @@ import { useRoute } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  Dimensions,
   Modal,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-
+const deviceHeight = Dimensions.get("window").height;
 export default function EventDetails() {
   const [modal, setModal] = useState(false);
   const [drawer, setDrawer] = useState("");
   const route = useRoute();
   const router = useRouter();
-  // console.log(route.params.eventId);
+
   useEffect(() => {
     console.log(!!drawer, drawer);
   }, [drawer]);
+
   return (
     <>
+      {/* Modal for BottomDrawer */}
       <Modal
         animationType="fade"
         transparent={true}
         visible={drawer !== ""}
         onRequestClose={() => setDrawer("")}
       >
-        <View style={styles.modalOverlay}>
-          <View
-            style={{ backgroundColor: "black", padding: 40, borderRadius: 10 }}
+        <View style={styles.drawer}>
+          <BottomDrawer
+            onClose={() => setDrawer("")}
+            style={styles.bottomDrawer}
           >
-            {/* modal should be here */}
-          </View>
+            {/* {drawer === "reminder" && (
+           
+            )} */}
+            <ReportDrawer />
+            {/* {drawer === "share" && (
+              <ShareDrawer onClose={() => setDrawer("")} />
+            )}
+            {drawer === "report" && (
+              <ReportDrawer onClose={() => setDrawer("")} />
+            )} */}
+          </BottomDrawer>
         </View>
       </Modal>
+
       <View style={styles.container}>
         <View style={styles.header}>
           <IconButton
@@ -64,12 +78,12 @@ export default function EventDetails() {
             style={{}}
           />
 
+          {/* Modal for the options menu */}
           <Modal
             visible={modal}
             transparent={true}
             animationType="fade"
             onRequestClose={() => setModal(false)}
-            // style={styles.modalWrapper}
           >
             <TouchableWithoutFeedback onPress={() => setModal(false)}>
               <View style={styles.modalOverlay}>
@@ -78,6 +92,7 @@ export default function EventDetails() {
                     <ReusableButton
                       onPress={() => {
                         setDrawer("share");
+                        setModal(false);
                       }}
                       style={styles.modalBtn}
                     >
@@ -96,6 +111,7 @@ export default function EventDetails() {
                     <ReusableButton
                       onPress={() => {
                         setDrawer("report");
+                        setModal(false);
                       }}
                       style={styles.modalBtn}
                     >
@@ -127,11 +143,7 @@ export default function EventDetails() {
             </TextFont>
           </ReusableButton>
         </View>
-
-        {/* <CarouselComponent /> */}
       </View>
-
-      {/* <ReminderDrawer /> */}
     </>
   );
 }
@@ -151,22 +163,16 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   headerText: {
-    // flexBasis: "65%",
     fontSize: 16,
-    // backgroundColor: "red",
-    // justifySelf: "start"
   },
   register: {
     position: "absolute",
     zIndex: 2,
     paddingHorizontal: 24,
     paddingBottom: 40,
-    // paddingTop: 10,
     bottom: 0,
     width: "100%",
-    // backgroundColor: "#fff",
   },
-
   registerBtn: {
     backgroundColor: Colors.primary.button,
     borderRadius: 12,
@@ -179,17 +185,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
   },
-
   modal: {
-    // width: 200,
-    // height: 200,
     backgroundColor: "#fff",
     borderRadius: 8,
     paddingHorizontal: 18,
     paddingVertical: 16,
     width: 200,
-    elevation: 5, // Shadow for Android
-    shadowColor: "#000", // Shadow for iOS
+    elevation: 5,
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.21,
     shadowRadius: 9,
@@ -216,14 +219,17 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-
-    // justifyContent: "center",
-    // alignItems: "center",
-    // position
     // backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+    justifyContent: "flex-end", // Align BottomDrawer to the bottom
   },
-  modalWrapper: {
-    width: 10,
-    backgroundColor: "red",
+  drawer: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+    justifyContent: "flex-end", // Align BottomDrawer to the bottom
+  },
+  bottomDrawer: {
+    paddingTop: 20,
+    height: deviceHeight / 1.5,
+    maxHeight: 510,
   },
 });
