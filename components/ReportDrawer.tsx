@@ -1,11 +1,24 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import TextFont from "./TextFont";
 import ReusableButton from "./ReusableButton";
 import { Colors } from "@/constants/Colors";
 import Input from "./Input";
+import FollowAlert from "./FollowAlert";
 
-const ReportDrawer = () => {
+interface PropTypes {
+  onSubmit: VoidFunction;
+}
+
+const ReportDrawer = ({ onSubmit }: PropTypes) => {
+  const [active, setActive] = useState<null | number>(null);
+
+  const btnTexts = [
+    "This event is not valid",
+    "    There’s a mistake in the event details",
+    "       I’m the facilitator for this event",
+  ];
+
   return (
     <View>
       <TextFont font="NunitoSans_600SemiBold" style={styles.drawerTitle}>
@@ -15,21 +28,24 @@ const ReportDrawer = () => {
         Hi, please tell us what’s wrong
       </TextFont>
       <View style={styles.btns}>
-        <ReusableButton onPress={() => {}} style={styles.btn}>
-          <TextFont font="NunitoSans_600SemiBold" style={styles.btnText}>
-            This event is not valid
-          </TextFont>
-        </ReusableButton>
-        <ReusableButton onPress={() => {}} style={styles.btn}>
-          <TextFont font="NunitoSans_600SemiBold" style={styles.btnText}>
-            There’s a mistake in the event details
-          </TextFont>
-        </ReusableButton>
-        <ReusableButton onPress={() => {}} style={styles.btn}>
-          <TextFont font="NunitoSans_600SemiBold" style={styles.btnText}>
-            I’m the facilitator for this event
-          </TextFont>
-        </ReusableButton>
+        {btnTexts.map((text, index) => (
+          <ReusableButton
+            onPress={() => {
+              console.log(index);
+              setActive(index);
+            }}
+            style={[styles.btn, active === index && styles.clickedBtn]}
+            key={text}
+          >
+            <TextFont
+              font="NunitoSans_600SemiBold"
+              style={[styles.btnText, active === index && styles.clickedText]}
+            >
+              {text}
+            </TextFont>
+          </ReusableButton>
+        ))}
+
         <Input
           value=""
           onChange={() => {}}
@@ -37,7 +53,7 @@ const ReportDrawer = () => {
           inputStyle={styles.input}
           containerStyle={styles.containerStyle}
         />
-        <ReusableButton onPress={() => {}} style={styles.submitBtn}>
+        <ReusableButton onPress={() => onSubmit()} style={styles.submitBtn}>
           <TextFont font="NunitoSans_600SemiBold" style={styles.submitBtnText}>
             Report this event
           </TextFont>
@@ -91,5 +107,12 @@ const styles = StyleSheet.create({
   },
   containerStyle: {
     flex: 0,
+  },
+  clickedBtn: {
+    borderColor: Colors.primary.button,
+    borderWidth: 1,
+  },
+  clickedText: {
+    color: Colors.primary.button,
   },
 });

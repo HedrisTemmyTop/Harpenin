@@ -54,12 +54,12 @@ export default FollowAlert;
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 10,
+    bottom: 40,
     // flex: 1,
     left: 0,
     right: 0,
     // top: 0,
-    zIndex: 2,
+    zIndex: 10,
 
     justifyContent: "center",
     alignItems: "center",

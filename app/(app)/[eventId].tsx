@@ -1,5 +1,6 @@
 import BottomDrawer from "@/components/BottomDrawer";
 import EventDetailsComponent from "@/components/EventDetails";
+import FollowAlert from "@/components/FollowAlert";
 import IconButton from "@/components/IconButton";
 import ReminderDrawer from "@/components/ReminderDrawer";
 import ReportDrawer from "@/components/ReportDrawer";
@@ -23,8 +24,13 @@ const deviceHeight = Dimensions.get("window").height;
 export default function EventDetails() {
   const [modal, setModal] = useState(false);
   const [drawer, setDrawer] = useState("");
+  const [isReported, setIsReported] = useState(false);
   const route = useRoute();
   const router = useRouter();
+  const handleSubmit = function () {
+    setDrawer("");
+    setIsReported(true);
+  };
 
   useEffect(() => {
     console.log(!!drawer, drawer);
@@ -33,6 +39,18 @@ export default function EventDetails() {
   return (
     <>
       {/* Modal for BottomDrawer */}
+      {isReported && (
+        <FollowAlert
+          onClose={() => setIsReported(false)}
+          alertIcon={{
+            icon: "checkmark-done",
+            color: Colors.tertiary.success,
+            size: 24,
+          }}
+        >
+          Thankss, your report has been sent
+        </FollowAlert>
+      )}
       <Modal
         animationType="fade"
         transparent={true}
@@ -44,16 +62,7 @@ export default function EventDetails() {
             onClose={() => setDrawer("")}
             style={styles.bottomDrawer}
           >
-            {/* {drawer === "reminder" && (
-           
-            )} */}
-            <ReportDrawer />
-            {/* {drawer === "share" && (
-              <ShareDrawer onClose={() => setDrawer("")} />
-            )}
-            {drawer === "report" && (
-              <ReportDrawer onClose={() => setDrawer("")} />
-            )} */}
+            <ReportDrawer onSubmit={handleSubmit} />
           </BottomDrawer>
         </View>
       </Modal>
@@ -169,7 +178,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 2,
     paddingHorizontal: 24,
-    paddingBottom: 40,
+    paddingBottom: 35,
     bottom: 0,
     width: "100%",
   },
