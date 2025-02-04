@@ -62,7 +62,8 @@ export default function EventDetails() {
             onClose={() => setDrawer("")}
             style={styles.bottomDrawer}
           >
-            <ReportDrawer onSubmit={handleSubmit} />
+            <ShareDrawer />
+            {/* <ReportDrawer onSubmit={handleSubmit} /> */}
           </BottomDrawer>
         </View>
       </Modal>
