@@ -7,28 +7,32 @@ import ReusableButton from "./ReusableButton";
 import TextFont from "./TextFont";
 import { useRouter } from "expo-router";
 import FullLoader from "./FullLoader";
+import { useAuth } from "@/context/AuthContext";
+import api from "@/api/api";
 type InputField = {
   value: string;
   error: string;
 };
 type FormState = {
-  firstName: InputField;
-  lastName: InputField;
+  firstname: InputField;
+  lastname: InputField;
   email: InputField;
   password: InputField;
 };
 
 const RegisterForm = () => {
   const router = useRouter();
+  // const { login } = useAuth();
 
   const inputFormat = {
     value: "",
     error: "",
   };
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [reqErr, setReqErr] = useState("");
   const [state, setState] = useState<FormState>({
-    firstName: inputFormat,
-    lastName: inputFormat,
+    firstname: inputFormat,
+    lastname: inputFormat,
     email: inputFormat,
     password: inputFormat,
   });
@@ -45,7 +49,7 @@ const RegisterForm = () => {
       };
     });
   };
-  const handleSubmit = function () {
+  const handleSubmit = async function () {
     let valid = true;
     Object.keys(state).forEach((key: string) => {
       const field = state[key as keyof FormState];
@@ -64,12 +68,47 @@ const RegisterForm = () => {
 
     if (!valid) return;
 
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      router.push("/(auth)/verify");
-    }, 3000);
+    // setIsSubmitting(true);
+    // setTimeout(() => {
+    //   setIsSubmitting(false);
+    // }, 3000);
+
+    await handleRegister();
     // move to login screen
+  };
+  const handleRegister = async () => {
+    try {
+      setIsSubmitting(true);
+
+      const data = {
+        firstname: state.firstname.value,
+        lastname: state.lastname.value,
+        email: state.email.value,
+        password: state.password.value,
+      };
+
+      const response = await api.post("auth/signup", data);
+
+      if (response.data.status === "success") {
+        // router.push("/(auth)/verify");
+        router.push({
+          pathname: "/(auth)/verify",
+          params: {
+            email: state.email.value,
+            firstname: state.firstname.value,
+          },
+        });
+      } else {
+        throw new Error(
+          response.data.message || "Something went wrong try again!"
+        );
+      }
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <>
@@ -85,26 +124,26 @@ const RegisterForm = () => {
               <Text style={styles.label}>What's your name</Text>
               <View style={styles.row}>
                 <Input
-                  onChange={(val) => handleChange("firstName", val)}
+                  onChange={(val) => handleChange("firstname", val)}
                   placeholder={"First Name"}
-                  value={state.firstName.value}
+                  value={state.firstname.value}
                   config={{
                     autoCorrect: false,
 
                     autoCapitalize: "none",
                   }}
-                  error={state.firstName.error}
+                  error={state.firstname.error}
                 />
                 <Input
-                  onChange={(val) => handleChange("lastName", val)}
+                  onChange={(val) => handleChange("lastname", val)}
                   placeholder={"Last Name"}
-                  value={state.lastName.value}
+                  value={state.lastname.value}
                   config={{
                     autoCorrect: false,
 
                     autoCapitalize: "none",
                   }}
-                  error={state.lastName.error}
+                  error={state.lastname.error}
                 />
               </View>
             </View>
@@ -149,6 +188,11 @@ const RegisterForm = () => {
                   error={state.password.error}
                 />
               </View>
+              {reqErr && (
+                <View>
+                  <Text style={styles.error}>{reqErr}</Text>
+                </View>
+              )}
               <ReusableButton onPress={handleSubmit} style={styles.button}>
                 <TextFont font="NunitoSans_700Bold" style={styles.buttonText}>
                   Create my account
@@ -225,5 +269,9 @@ const styles = StyleSheet.create({
   placeholderText: {
     color: Colors.primary.text,
     marginLeft: 5,
+  },
+  error: {
+    color: Colors.primary.error,
+    textAlign: "center",
   },
 });

@@ -20,8 +20,12 @@ type INativeEvent = {
 interface INativeEventProp {
   nativeEvent: INativeEvent;
 }
+interface PropTypes {
+  email: string;
+  firstname: string;
+}
 
-const VerifyEmail = () => {
+const VerifyEmail = ({ email, firstname }: PropTypes) => {
   const [otps, setOtps] = useState(["", "", "", ""]);
   const [error, setError] = useState("");
   const inputsRef = useRef<Array<TextInput | null>>([null, null, null, null]);
@@ -102,11 +106,11 @@ const VerifyEmail = () => {
             Verify your email
           </TextFont>
           <Text style={styles.textSmall}>
-            Oluwatobi, we sent a 4-digit code to your mailbox
+            {firstname}, we sent a 4-digit code to your mailbox
           </Text>
           <View style={styles.content}>
             <TextFont font="NunitoSans_400Regular" style={styles.detailText}>
-              Sent to: Samsontobi890@gmail.com
+              Sent to: {email}
             </TextFont>
 
             <View style={styles.inputContainer}>
@@ -219,7 +223,7 @@ const styles = StyleSheet.create({
   buttons: {
     // position: "absolute",
     flex: 1,
-    top: "43%",
+    top: "40%",
     // bottom: "-10%",
     justifyContent: "center",
     alignItems: "center",
